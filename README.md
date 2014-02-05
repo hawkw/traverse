@@ -9,6 +9,8 @@ If you want to help contribute to my filesystems statistics research project, pl
 
 `traverse.py` should run on any computer with a working installation of Python 3 — Windows, Mac, Linux, it doesn't matter. Please collect data from as many computers as you can — your home computer, Alden Hall lab computers, et cetera. Traversal of extremely large filesystem trees may not happen instantaneously: I've seen traversals take as much as 15 seconds, so please give the script a few moments to run. It can be run in verbose mode, where it'll print every file and directory it encounters to the console, which can be used if you want to make sure the script is running and hasn't crashed.
 
+I've also added a CSV file called `people.csv` to the repository. If you're interested in seeing any of the eventual results of this study, or being credited in the event that this is ever published, please add your name and e-mail address to the CSV file. If you don't want to be contacted but you do be credited, just add your name and leave the email field blank. Thanks for helping out!
+
 Usage instructions:
 --------------------
 
