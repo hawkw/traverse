@@ -3,7 +3,13 @@ traverse
 
 Doing science with filesystem traversal!
 
+### What's Going On Here?
+
 The `src/` directory in this repository contains two python scripts: `traverse.py` and `traverselite.py`, both of which recursively traverse a filesystem and collect data. `traverse.py` requires some additional Python libraries, including `numpy`, `scipy`, `matplotlib`, and `docopt`, which are not bundled with all Python installs and may not be available on all systems, such as Alden Hall lab computers. Therefore, I've bundled an additional script, `traverselite.py`, which will do data collection and output CSV files (as well as text to the console) without using the data analysis and graphing features provided by those libraries. However, if you do have these libraries installed or are willing to install them, the full-featured `traverse.py` will give you access to histograms of filesystem density and to a more usable command-line interface.
+
+### How to Help Out
+
+I'm doing some research on the properties of filesystems that grew out of a Computer Science 440 laboratory assignment. Over the course of the assignment, I realized that the filesystem on my computer is not perfectly generic, and that if I really want to know what filesystems tend to look like, I need a lot more data points. Therefore, I'd like to collect data from as diverse a selection of computers, operating systems, and usage patterns as possible. Here's where you come in.
 
 If you want to help contribute to my filesystems statistics research project, please fork this repository, run `traverselite.py` on your home directory, create a CSV file, push your changes, and send me a pull request. I'm planning on doing all of my data analysis & graphing in an IPython notebook, which I'll make publicly available once it's complete.
 
