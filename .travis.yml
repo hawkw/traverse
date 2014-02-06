@@ -1,0 +1,8 @@
+# travis config file for traverse
+language: python
+# only build against python3
+python:
+  - "3.2"
+  - "3.3"
+# command to install dependencies
+install: "pip install -r requirements.txt"
