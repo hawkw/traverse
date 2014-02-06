@@ -26,6 +26,33 @@ import os, csv, time, datetime, bz2
 from sys import argv, platform
 from stat import *
 
+def makecsv(directory,filesystem,traversetime):
+
+	timestamp = datetime.datetime.now()
+	filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv.bz2"
+
+	with bz2.BZ2File("data/" + filename, 'wb') as f:
+		writer = csv.writer(f)
+		writer.writerow(['path', 'st_mode', 'st_ino', 'st_dev', 'st_nlink',
+						 'st_uid', 'st_gid', 'st_size', 'st_atime', 'st_mtime',
+						 'st_ctime'])
+		for key, value in filesystem.items():
+			writer.writerow([key, value. st_mode,
+			                value.st_ino,  value.st_dev, value.st_nlink, 
+			                value.st_uid, value.st_gid, value.st_size, 
+			                value.st_atime, value.st_mtime, value.st_ctime])
+		f.close();
+
+	if '--nometadata' not in argv:
+
+			metadata = "data/datafiles.csv"
+
+			with open(metadata, 'a') as m:
+				writer = csv.writer(m)
+				writer.writerow([filename, timestamp, platform, traversetime, "", ""])
+
+			m.close()
+
 def main():
 	"""Main function for traverselite"""
 	directory = argv[1]
@@ -39,31 +66,7 @@ def main():
 	print("Filesystem traversed in {:06} seconds\n".format(end - start))
 
 	if '--csv' in argv:
-
-		timestamp = datetime.datetime.now()
-		filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv.bz2"
-
-		with bz2.BZ2File("data/" + filename, 'wb') as f:
-			writer = csv.writer(f)
-			writer.writerow(['path', 'st_mode', 'st_ino', 'st_dev', 'st_nlink',
-							 'st_uid', 'st_gid', 'st_size', 'st_atime', 'st_mtime',
-							 'st_ctime'])
-			for key, value in filesystem.items():
-				writer.writerow([key, value. st_mode,
-				                value.st_ino,  value.st_dev, value.st_nlink, 
-				                value.st_uid, value.st_gid, value.st_size, 
-				                value.st_atime, value.st_mtime, value.st_ctime])
-			f.close();
-
-	if '--nometadata' not in argv:
-
-			metadata = "data/datafiles.csv"
-
-			with open(metadata, 'a') as m:
-				writer = csv.writer(m)
-				writer.writerow([filename, timestamp, platform, end-start, "", ""])
-
-			m.close()
+		makecsv(directory,filesystem, end - start)
 
 	if '--size' in argv:
 		size(filesystem)
