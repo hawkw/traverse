@@ -22,7 +22,7 @@ Options:
 
 """
 
-import os, csv, time, datetime
+import os, csv, time, datetime, bz2
 from sys import argv, platform
 from stat import *
 
@@ -41,9 +41,9 @@ def main():
 	if '--csv' in argv:
 
 		timestamp = datetime.datetime.now()
-		filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv"
+		filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv.bz2"
 
-		with open("data/" + filename, 'wb') as f:
+		with bz2.BZ2File("data/" + filename, 'wb') as f:
 			writer = csv.writer(f)
 			writer.writerow(['path', 'st_mode', 'st_ino', 'st_dev', 'st_nlink',
 							 'st_uid', 'st_gid', 'st_size', 'st_atime', 'st_mtime',
@@ -70,6 +70,7 @@ def main():
 
 	if '--links' in argv:
 		links(filesystem)
+
 
 def mean(l):
 	"""Returns the arithmetic mean of list l, as a float"""
