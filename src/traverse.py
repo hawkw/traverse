@@ -47,8 +47,8 @@ def histogram(dataset, xlabel, title):
 
 		xgrid = numpy.linspace(min(dataset), max(dataset), 100)
 		pyplot.hist(dataset, bins=100, log=True)
-		pyplot.plot(xgrid, density.evaluate(xgrid), label='kde', color='r')
-		pyplot.plot(xgrid, stats.norm.pdf(xgrid), label='DGP normal', color="g")
+		#pyplot.plot(xgrid, density.evaluate(xgrid), label='kde', color='r')
+		#pyplot.plot(xgrid, stats.norm.pdf(xgrid), label='DGP normal', color="g")
 
 		pyplot.xlabel(xlabel)
 		pyplot.ylabel('Frequency (logarithmic)')
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
 	if arguments['--csv']:
 
-		filename = arguments["DIRECTORY"].replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].replace('/','_') + ".csv"
+		filename = "data/" + arguments["DIRECTORY"].replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].strftime('%Y-%m-%d-%H-%M-%S') + ".csv"
 
 		with open(filename, 'wb') as f:
 			writer = csv.writer(f)
