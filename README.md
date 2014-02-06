@@ -28,9 +28,9 @@ Options:
     --csv           Output a CSV
 ```
 
-If you want to contribute to my research, please run the following command:
+If you want to contribute to my research, please run the following command from the repository root directory :
 ```
-    python traverse.py ~ --csv
+    python src/traverse.py ~ --csv
 ```
 
 Feel free to add the `--verbose`, `--size`, and `--links` flags as well, if you're interested in additional information.
