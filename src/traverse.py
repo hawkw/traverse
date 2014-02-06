@@ -8,7 +8,7 @@ Tool to recursively traverse a filesystem and collect data on
 characteristics such as size, age, et cetera.
 
 Usage: 
-	traverse.py (DIRECTORY) [-slcha] [--size] [--links] [--histogram] [--verbose] [--csv]
+	traverse.py (DIRECTORY) [-slcha] [--size] [--links] [--histogram] [--verbose] [--csv] [--nometadata]
 
 Arguments:
 	DIRECTORY 			Root directory from which to begin traversal.
@@ -21,6 +21,7 @@ Options:
 	-a, --age			Analyze file age
 	-l, --links  		Analyze file link count
 	-c, --csv 			Output a CSV
+	--nometadata 		Do not collect and log metadata to datafiles.csv
 
 """
 
