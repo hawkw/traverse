@@ -1,0 +1,6 @@
+numpy
+matplotlib
+seaborn
+scipy
+docopt
+hurry.filesize
