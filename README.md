@@ -22,7 +22,7 @@ Usage instructions:
 
 ```
 Usage: 
-    python traverselite.py (DIRECTORY) [--size] [--links] [--verbose] [--csv]
+    python traverselite.py (DIRECTORY) [--size] [--links] [--verbose] [--csv] [--nometadata]
 
 Arguments:
     DIRECTORY           Root directory from which to begin traversal.
@@ -32,14 +32,18 @@ Options:
     --size          Analyze file size
     --links         Analyze file link count
     --csv           Output a CSV
+    --nometadata    Do not collect metadata on runs
+
 ```
 
-If you want to contribute to my research, please run the following command from the repository root directory :
+If you want to contribute to my research, please run the following command from the repository root directory:
 ```
     python src/traverse.py ~ --csv
 ```
 
-Feel free to add the `--verbose`, `--size`, and `--links` flags as well, if you're interested in additional information.
+Feel free to add the `--verbose`, `--size`, and `--links` flags as well, if you're interested in additional information. Do not enable the `--nometadata` flag if you want to contribute your data to my study.
+
+Note also that `traverse.py` has a few additional options, which you can read about by running `traverse.py --help`.
 
 Thanks guys!
 
