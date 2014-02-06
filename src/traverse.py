@@ -133,9 +133,10 @@ if __name__ == '__main__':
 
 	if arguments['--csv']:
 
-		filename = "data/" + arguments["DIRECTORY"].replace('/', '-') + "_" + str(datetime.datetime.now().strftime('%Y-%m-%d')) + ".csv"
+		timestamp = datetime.datetime.now()
+		filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv"
 
-		with open(filename, 'wb') as f:
+		with open("data/" + filename, 'wb') as f:
 			writer = csv.writer(f)
 			writer.writerow(['path', 'st_mode', 'st_ino', 'st_dev', 'st_nlink',
 							 'st_uid', 'st_gid', 'st_size', 'st_atime', 'st_mtime',
@@ -146,6 +147,16 @@ if __name__ == '__main__':
 				                value.st_uid, value.st_gid, value.st_size, 
 				                value.st_atime, value.st_mtime, value.st_ctime])
 			f.close();
+
+	if not arguments['--nometadata']:
+
+			metadata = "data/datafiles.csv"
+
+			with open(metadata, 'a') as m:
+				writer = csv.writer(m)
+				writer.writerow([filename, timestamp, platform, end-start, "", ""])
+
+			m.close()
 
 	if arguments['--size']:
 		size(filesystem)

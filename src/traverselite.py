@@ -23,7 +23,7 @@ Options:
 """
 
 import os, csv, time, datetime
-from sys import argv
+from sys import argv, platform
 from stat import *
 
 def main():
@@ -40,9 +40,10 @@ def main():
 
 	if '--csv' in argv:
 
-		filename = "data/" + directory.replace('/', '-') + "_" + str(datetime.datetime.now().strftime('%Y-%m-%d')) + ".csv"
+		timestamp = datetime.datetime.now()
+		filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv"
 
-		with open(filename, 'wb') as f:
+		with open("data/" + filename, 'wb') as f:
 			writer = csv.writer(f)
 			writer.writerow(['path', 'st_mode', 'st_ino', 'st_dev', 'st_nlink',
 							 'st_uid', 'st_gid', 'st_size', 'st_atime', 'st_mtime',
@@ -53,6 +54,16 @@ def main():
 				                value.st_uid, value.st_gid, value.st_size, 
 				                value.st_atime, value.st_mtime, value.st_ctime])
 			f.close();
+
+	if '--nometadata' not in argv:
+
+			metadata = "data/datafiles.csv"
+
+			with open(metadata, 'a') as m:
+				writer = csv.writer(m)
+				writer.writerow([filename, timestamp, platform, end-start, "", ""])
+
+			m.close()
 
 	if '--size' in argv:
 		size(filesystem)
