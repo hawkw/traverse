@@ -1,7 +1,7 @@
 traverse
 ========
 
-Doing science with filesystem traversal!
+Doing science with filesystem traversal! [![Build Status](https://travis-ci.org/hawkw/traverse.png?branch=master)](https://travis-ci.org/hawkw/traverse)
 
 ### What's Going On Here?
 
