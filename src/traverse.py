@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
 	if arguments['--csv']:
 
-		filename = "data/" + arguments["DIRECTORY"].replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].strftime('%Y-%m-%d-%H-%M-%S') + ".csv"
+		filename = "data/" + arguments["DIRECTORY"].replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].strftime('%Y-%m-%d') + ".csv"
 
 		with open(filename, 'wb') as f:
 			writer = csv.writer(f)

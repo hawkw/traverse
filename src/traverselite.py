@@ -40,7 +40,7 @@ def main():
 
 	if '--csv' in argv:
 
-		filename = "data/" + directory.replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].strftime('%Y-%m-%d-%H-%M-%S') + ".csv"
+		filename = "data/" + directory.replace('/', '-') + "_" + str(datetime.datetime.now()).split('.')[0].strftime('%Y-%m-%d') + ".csv"
 
 		with open(filename, 'wb') as f:
 			writer = csv.writer(f)
