@@ -40,7 +40,7 @@ Options:
 
 If you want to contribute to my research, please run the following command from the repository root directory:
 ```
-    python src/traverse.py ~ --csv
+    python src/traverselite.py ~ --csv
 ```
 
 Feel free to add the `--verbose`, `--size`, and `--links` flags as well, if you're interested in additional information. Do not enable the `--nometadata` flag if you want to contribute your data to my study.
