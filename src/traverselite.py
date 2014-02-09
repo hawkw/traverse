@@ -29,7 +29,7 @@ from stat import *
 def makecsv(directory,filesystem,traversetime):
 
 	timestamp = datetime.datetime.now()
-	filename = directory.replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv.bz2"
+	filename = directory[1:].replace('/', '-') + "_" + str(timestamp.strftime('%Y-%m-%d')) + ".csv.bz2"
 
 	with bz2.BZ2File("data/" + filename, 'wb') as f:
 		writer = csv.writer(f)
