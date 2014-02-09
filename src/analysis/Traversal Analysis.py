@@ -51,37 +51,6 @@ macs = csvData[csvData['Platform'] == 'darwin']
 # get all the machines self-reporting as "Linux2" (Ubuntu)
 ubuntus = csvData[csvData['Platform'] == 'linux2']
 
-# now get all nonzero ST_SIZE values from Macs and Ubuntus for graphing
-
-mac_sizes = []
-ubuntu_sizes = []
-
-for key, value in datafiles.items():
-    if key in list(macs['Filename']):
-        mac_sizes = mac_sizes + [size for size in value['st_size'] if size > 1]
-
-for key, value in datafiles.items():
-    if key in list(ubuntus['Filename']):
-        ubuntu_sizes = ubuntu_sizes + [size for size in value['st_size'] if size > 1]
-        
-# now get all nonzero ST_SIZE and ST_NLINK values from Macs and Ubuntus for graphing
-
-mac_sizes = []
-ubuntu_sizes = []
-mac_nlink = []
-ubuntu_nlink = []
-
-for key, value in datafiles.items():
-    if key in list(macs['Filename']):
-        mac_sizes = mac_sizes + [size for size in value['st_size'] if size > 1]
-        # NLINK = 1: file, NLINK > 1: directory
-        mac_nlink = mac_sizes + [nlink for nlink in value['st_nlink'] if nlink > 1]
-
-for key, value in datafiles.items():
-    if key in list(ubuntus['Filename']):
-        ubuntu_sizes = ubuntu_sizes + [size for size in value['st_size'] if size > 1]
-        ubuntu_nlink = ubuntu_sizes + [nlink for nlink in value['st_nlink'] if nlink > 1]
-
 # <markdowncell>
 
 # Start graphing
@@ -92,6 +61,7 @@ for key, value in datafiles.items():
 # <codecell>
 
 from scipy import stats
+from pylab import *
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -100,29 +70,96 @@ import seaborn as sns
 %matplotlib inline
 
 # make distribution plots for filesize on OSX and Ubuntu (matplotlib style)
-bins = 25
-plt.hist(ubuntu_sizes, bins, log=True, normed=True, color="#6495ED", alpha=.5, histtype="stepfilled")
-plt.hist(mac_sizes, bins, log=True, normed=True, color="#F08080", alpha=.5, histtype="stepfilled");
+bins = 10
+rcParams['figure.figsize'] = 10, 8
+
+for key, value in datafiles.items():
+    if key in list(macs['Filename']):
+        plt.hist([size for size in value['st_size'] if size > 1], bins, normed=True, log=True, alpha=.5, label=key);
+        
 plt.xlabel('File size')
 plt.ylabel('Frequency (logarithmic)')
-plt.title('Distribution of file sizes on Ubuntu and Mac OS X')
+plt.title('Distribution of file sizes on Mac OS X')
 plt.show()
+
+for key, value in datafiles.items():
+    if key in list(ubuntus['Filename']):
+        plt.hist([size for size in value['st_size'] if size > 1], bins, normed=True, log=True, alpha=.5, label=key);
+        
+plt.xlabel('File size')
+plt.ylabel('Frequency (logarithmic)')
+plt.title('Distribution of file sizes on Ubuntu')
+plt.show()
+
 
 # <codecell>
 
-# make distribution plots for filesize on OSX and Ubuntu (matplotlib style)
-bins = 25
-plt.hist(ubuntu_nlink, bins, log=True, normed=True, color="#6495ED", alpha=.5, histtype="stepfilled")
-plt.hist(mac_nlink, bins, log=True, normed=True, color="#F08080", alpha=.5, histtype="stepfilled");
+# try and draw Seaborn KDE plots
+
+with sns.palette_context("husl"):
+    
+    f, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 20), sharex=False)
+    
+    for key, value in datafiles.items():
+        if key in list(macs['Filename']):
+            path = key.replace('-', '/').split('.')[0]
+            ax1 = sns.kdeplot(double([size for size in value['st_size'] if size > 1]), shade=True, label=path, legend=True, ax=ax1)
+    
+    ax1.set_xscale('log')
+            
+    for key, value in datafiles.items():
+        if key in list(ubuntus['Filename']):
+            path = key.replace('-', '/').split('.')[0]
+            ax2 =  sns.kdeplot(double([size for size in value['st_size'] if size > 1]), shade=True, label=path, legend=True, ax=ax2)
+    
+    ax2.set_xscale('log')
+    
+    plt.show()
+
+# <codecell>
+
+# try and draw Seaborn distplot plots
+
+with sns.palette_context("husl"):
+    for key, value in datafiles.items():
+        if key in list(macs['Filename']):
+            ax = sns.distplot(double([size for size in value['st_size'] if size > 1]))
+    ax=ax.set_yscale('log')
+    plt.show()
+            
+with sns.palette_context("husl"):
+    for key, value in datafiles.items():
+        if key in list(ubuntus['Filename']):
+           ax = sns.distplot(double([size for size in value['st_size'] if size > 1]))
+    ax=ax.set_yscale('log')
+    plt.show()
+
+# <codecell>
+
+# make distribution plots for link density on OSX and Ubuntu (matplotlib style)
+bins = 10
+
+for key, value in datafiles.items():
+    if key in list(macs['Filename']):
+        plt.hist([nlink for nlink in value['st_nlink'] if nlink > 1], bins, normed=True, log=True, alpha=.5);
+        
 plt.xlabel('inode link count')
 plt.ylabel('Frequency (logarithmic)')
-plt.title('Distribution of inode link density on Ubuntu and Mac OS X')
+plt.title('Distribution of inode link density on Mac OS X')
+plt.show()
+
+for key, value in datafiles.items():
+    if key in list(ubuntus['Filename']):
+        plt.hist([nlink for nlink in value['st_nlink'] if nlink > 1], bins, normed=True, log=True, alpha=.5);
+        
+plt.xlabel('inode link count')
+plt.ylabel('Frequency (logarithmic)')
+plt.title('Distribution of inode link density on Ubuntu')
 plt.show()
 
 # <codecell>
 
-sns.distplot(mac_sizes)
-
-# <codecell>
-
+# plot traversal times
+plt.hist(csvData['Traversal Time'])
+plt.show()
 
