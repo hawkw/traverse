@@ -4,5 +4,10 @@ language: python
 python:
   - "3.2"
   - "3.3"
+# try and get Travis to install numpy/scipy
+virtualenv:
+  system_site_packages: true
+before_install:
+ - sudo apt-get install -qq python-numpy python-scipy
 # command to install dependencies
 install: "sudo pip install -r requirements.txt"
