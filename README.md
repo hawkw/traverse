@@ -15,6 +15,8 @@ I'm doing some research on the properties of filesystems that grew out of a Comp
 
 If you want to help contribute to my filesystems statistics research project, please fork this repository, run `traverselite.py` on your home directory, create a CSV file, push your changes, and send me a pull request. I'm planning on doing all of my data analysis & graphing in an IPython notebook, which I'll make publicly available once it's complete.
 
+If you're not familiar with how to fork and merge GitHub repositories, check out [this tutorial](http://guides.github.com/overviews/forking/).
+
 `traverselite.py` should run on any computer with a working installation of Python 3 — Windows, Mac, Linux, it doesn't matter. Please collect data from as many computers as you can — your home computer, Alden Hall lab computers, et cetera. Traversal of extremely large filesystem trees may not happen instantaneously: I've seen traversals take as much as 15 seconds, so please give the script a few moments to run. It can be run in verbose mode, where it'll print every file and directory it encounters to the console, which can be used if you want to make sure the script is running and hasn't crashed.
 
 The script will also collect a limited amount of metadata on runs (timestamp, traversal time, and operating system) and log them to `datafiles.csv` in the `data/` directory. If you're interested in seeing any of the eventual results of this study, or being credited in the event that this is ever published, please add your name and e-mail address to the CSV file. If you don't want to be contacted but you do be credited, just add your name and leave the email field blank. Thanks for helping out!
